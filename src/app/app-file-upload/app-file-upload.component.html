@@ -1,0 +1,38 @@
+<!--
+<s>trong>TRANSFORMER</s>trong></h2>
+  <hr>
+<div>
+<span>Choose file</span>
+<span>{{file ? file.name : ' or drag and drop file here' }}</span>
+<input class="file-input" type="file">
+</div>
+</div>
+
+-->
+  
+
+<div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+  <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+</div>
+<div  class="files-list" *ngFor="let file of files;let i= index">
+    <p> {{ file.name }} </p>
+    <button class="delete-file" (click)="deleteAttachment(i)">
+      <img src="../../assets/img/Recycle_Bin_Full.png">
+    </button>
+ </div>
+ <button type="button" id="submitButton" class="btn btn-light" on-click="sendFile()">Convert</button>
+ <div *ngIf="wrongFormat">
+   <div class="alert alert-danger" role="alert">
+     Wrong format input. Only accepted format is: <strong>.csv</strong>
+   </div>
+ </div>
+ <div *ngIf="noFile">
+  <div class="alert alert-danger" role="alert">
+    You must upload a file first.
+  </div>
+ </div>
+ <div *ngIf="excessiveFiles">
+  <div class="alert alert-warning" role="alert">
+    Only one file to upload is accepted
+  </div>
+</div> 
