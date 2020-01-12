@@ -24,6 +24,7 @@ noFile: boolean = false;
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       this.files.push(element)
+      this.noFile = false;
     }  
   }
 
