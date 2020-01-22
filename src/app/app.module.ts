@@ -11,6 +11,8 @@ import { FooterComponent } from './footer/footer.component';
 import { DragDropDirective } from './dragdrop.directive';
 import { AppFileUploadComponent } from './app-file-upload/app-file-upload.component';
 import { FileUploadService } from './services/file-upload.service';
+import { RdfEditorComponent } from './rdf-editor/rdf-editor.component';
+import { HomepageComponent } from './homepage/homepage.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { FileUploadService } from './services/file-upload.service';
     ContactComponent,
     FooterComponent,
     AppFileUploadComponent,
-    DragDropDirective
+    DragDropDirective,
+    RdfEditorComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
