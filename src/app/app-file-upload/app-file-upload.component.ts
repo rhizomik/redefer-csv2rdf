@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, HostListener, ElementRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { StateServiceService } from '../services/state-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-file-upload',
@@ -19,6 +21,9 @@ files: any = [];
 excessiveFiles: boolean = false;
 wrongFormat: boolean = false;
 noFile: boolean = false;
+
+  constructor(private stateService: StateServiceService,
+              private router: Router) {}
 
   uploadFile(event) {
     for (let index = 0; index < event.length; index++) {
@@ -43,7 +48,8 @@ noFile: boolean = false;
         this.wrongFormat = false;
         this.noFile = false;
         this.excessiveFiles = false;
-
+        this.stateService.data = fileToUpload;
+        this.router.navigate(['/editor'])
    /*     this.fileUploadService.postFileToApi(fileToUpload).subscribe(data => {
           this.data = data; 
         });*/

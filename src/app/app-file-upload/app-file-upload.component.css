@@ -39,3 +39,7 @@
 .files-list .delete-file img {
     width: 30px;
 }
+
+.uploadfilecontainer {
+    opacity: 0.8 !important;
+}
