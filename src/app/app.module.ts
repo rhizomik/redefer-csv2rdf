@@ -13,6 +13,7 @@ import { AppFileUploadComponent } from './app-file-upload/app-file-upload.compon
 import { FileUploadService } from './services/file-upload.service';
 import { RdfEditorComponent } from './rdf-editor/rdf-editor.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,11 +26,13 @@ import { HomepageComponent } from './homepage/homepage.component';
     AppFileUploadComponent,
     DragDropDirective,
     RdfEditorComponent,
-    HomepageComponent
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     FileUploadService,
