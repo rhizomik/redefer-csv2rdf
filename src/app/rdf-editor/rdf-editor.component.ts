@@ -4,6 +4,7 @@ import { Papa } from 'ngx-papaparse';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { RDFRequest } from '../models/RDFRequest';
 import { FileUploadService } from '../services/file-upload.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-rdf-editor',
@@ -22,9 +23,11 @@ export class RdfEditorComponent implements OnInit {
   constructor(private stateService: StateServiceService,
               private papa: Papa,
               private fb: FormBuilder,
-              private apiService: FileUploadService) { }
+              private apiService: FileUploadService,
+              private titleService: Title) { }
 
   ngOnInit() {
+    this.titleService.setTitle("RDFTransformer - Editor")
     this.file = this.stateService.data;
     this.stateService.data = null;
     this.papa.parse(this.file, {

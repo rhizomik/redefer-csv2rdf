@@ -10,16 +10,18 @@
     margin-left: 30%;
     margin-top: 5%;
 }
-
-#image{
-    background-image: url(../../assets/img/abstract-architecture-building-exterior-geometric-593158.jpg) !important;
+/*
+img{
     background-repeat: no-repeat;
-    background-attachment: fixed;
     position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-}
+    z-index: -1;
+    height: 600px;
+    width: 100%;
+}*/
 
 section{
+
+    background-color: #676F7A;
     position: fixed;
     top: 0;
     left: 0;
