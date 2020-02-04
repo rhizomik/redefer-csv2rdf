@@ -15,6 +15,7 @@ import { RdfEditorComponent } from './rdf-editor/rdf-editor.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     DragDropDirective,
     RdfEditorComponent,
     HomepageComponent,
+    LoginFormComponent,
   ],
   imports: [
     BrowserModule,
