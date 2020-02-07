@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
-
+  private registerUrl = "http://localhost:8080/register";
   constructor(private http: HttpClient) {
   }
 
@@ -27,6 +27,24 @@ export class AuthenticationService {
     );
   }
 
+  register(user: User): Observable<any> {
+    const formdata: FormData = new FormData();
+    const headers = { 
+    }
+
+    const requestOptions = {
+      headers: new HttpHeaders(headers),
+      responseType: 'text' as 'json'
+    }
+
+    formdata.append('username', user.id);
+    formdata.append('password', user.password);
+    formdata.append('email', user.email);
+
+    const req = new HttpRequest('POST', this.registerUrl, formdata);
+    return this.http.post(this.url, formdata, requestOptions);
+  }
+  
   generateAuthorization(username: string, password: string): string {
     return `Basic ${btoa(`${username}:${password}`)}`;
   }
