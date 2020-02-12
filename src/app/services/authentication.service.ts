@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../authentication/User';
 import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
-  private registerUrl = "http://localhost:8080/register";
+  private url = "http://localhost:8080"
+
   constructor(private http: HttpClient) {
   }
 
@@ -17,7 +18,7 @@ export class AuthenticationService {
         Authorization: authorization
       })
     };
-    return this.http.get('/identity', httpOptions).pipe(
+    return this.http.get(this.url + '/identity', httpOptions).pipe(
       map(data => {
         const user: User = new User(data);
         user.authorization = authorization;
@@ -37,12 +38,13 @@ export class AuthenticationService {
       responseType: 'text' as 'json'
     }
 
-    formdata.append('username', user.id);
+    formdata.append('username', user.username);
     formdata.append('password', user.password);
     formdata.append('email', user.email);
+    formdata.append('passwordReset', "false");
+    const req = new HttpRequest('POST', this.url + '/register', formdata);
 
-    const req = new HttpRequest('POST', this.registerUrl, formdata);
-    return this.http.post(this.url, formdata, requestOptions);
+    return this.http.post(this.url + '/register', formdata, requestOptions);
   }
   
   generateAuthorization(username: string, password: string): string {

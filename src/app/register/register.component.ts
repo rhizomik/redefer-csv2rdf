@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { User } from '../authentication/User';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -12,10 +13,13 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   private registerForm: FormGroup;
   private emptyForm = false;
+  private error = false;
+  private successfull = false;
 
   constructor(private fb: FormBuilder,
               private titleService: Title,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.titleService.setTitle("RDFTransformer - Register")
@@ -28,17 +32,24 @@ export class RegisterComponent implements OnInit {
   
   onSubmit() {
     let user = new User();
+
     user.username = this.registerForm.value.userID;
     user.email = this.registerForm.value.email;
     user.password = this.registerForm.value.password;
-    
-    if(this.registerForm.value.username === null || this.registerForm.value.password === null || this.registerForm.value.email === null) {
+ 
+    if(this.registerForm.value.username === "" || this.registerForm.value.password === "" || this.registerForm.value.email === "") {
       this.emptyForm = true;
     } else {
       this.emptyForm = false;
-
-      // TODO SERVICE CALL
-      this.router.navigate(['/login']);
+      this.error = false;
+      this.authService.register(user).subscribe(data => {
+        this.successfull = true;
+        setTimeout( () => {}, 1000)  //no funciona
+        this.router.navigate(['/login']);
+      }),() =>{
+        this.error = true;
+      }
+      
     }
   
   }

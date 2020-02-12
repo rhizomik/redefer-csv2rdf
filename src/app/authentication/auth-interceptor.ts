@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
-import { AuthenticationBasicService } from './authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authentication: AuthenticationBasicService) {
+  constructor(private authentication: AuthenticationService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {

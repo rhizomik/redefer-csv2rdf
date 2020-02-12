@@ -17,6 +17,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RegisterComponent } from './register/register.component';
   providers: [
     FileUploadService,
     Title,
+    AuthenticationService,
   ],
   bootstrap: [AppComponent]
 })

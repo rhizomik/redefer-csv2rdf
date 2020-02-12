@@ -1,0 +1,16 @@
+section {
+    background-color: #676F7A;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+}
+
+#container{
+    margin-top: 10%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
