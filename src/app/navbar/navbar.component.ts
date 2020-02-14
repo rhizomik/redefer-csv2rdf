@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentUserName(): string {
-    return this.authService.getCurrentUser().id;
+    return this.authService.getCurrentUser().username;
   }
 
   isLoggedIn(): boolean {
@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentUserId(): string {
-    return this.authService.getCurrentUser().id;
+    return this.authService.getCurrentUser().username;
   }
 
 }

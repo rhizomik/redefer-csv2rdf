@@ -3,11 +3,11 @@ import { Authority } from './authority';
 export class User {
     id: string;
     uri: string;
-    username = '';
+    username = "";
     email: string;
     authorities: Authority[] = [];
-    authorization = '';
-    password = '';
+    authorization = "";
+    password = "";
     passwordReset = false;
     enabled: boolean;
   

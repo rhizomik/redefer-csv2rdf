@@ -7,11 +7,12 @@
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                 <li class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="#contact">contact</a></li>
                 <li *ngIf="!isLoggedIn()" class="nav-item nav-link js-scroll-trigger" role="presentation"><a class="nav-link js-scroll-trigger" href="/login">Login</a></li>
-                <li *ngIf="isLoggedIn()" class="nav-item dropdown">
+                <li *ngIf="isLoggedIn()" class="nav-item dropdown nav-item nav-link js-scroll-trigger">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{getCurrentUserId()}}
+                      {{getCurrentUserName()}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" (click)="myTransformations()">My Transformations</a>
                       <a class="dropdown-item" (click)="logout(); $event.preventDefault()">Logout</a>
                     </div>
                 </li>
