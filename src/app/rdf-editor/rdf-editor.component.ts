@@ -5,6 +5,7 @@ import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { RDFRequest } from '../models/RDFRequest';
 import { FileUploadService } from '../services/file-upload.service';
 import { Title } from '@angular/platform-browser';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-rdf-editor',
@@ -24,7 +25,8 @@ export class RdfEditorComponent implements OnInit {
               private papa: Papa,
               private fb: FormBuilder,
               private apiService: FileUploadService,
-              private titleService: Title) { }
+              private titleService: Title,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.titleService.setTitle("RDFTransformer - Editor")
@@ -38,8 +40,7 @@ export class RdfEditorComponent implements OnInit {
             this.headers = item;
           } else if (item.length !== 1){
             this.lines.push(item);
-          }
-          
+          }   
         });
       }
     });
@@ -57,11 +58,17 @@ export class RdfEditorComponent implements OnInit {
     request.uri = this.formGroup.value.inputUri;
     request.format = this.formGroup.value.inputFormat;
     request.types = this.inputTypes;
-
-    this.apiService.postRDFDataRequest(request, this.file).subscribe(data => { 
-      let extension = this.getExtension(request.format)
-      this.saveByteArray("rdf_converted." + extension, data)
-    });
+    if(this.authenticationService.isLoggedIn()) {
+      this.apiService.postRDFDataUserRequest(this.authenticationService.getCurrentUser(), request, this.file).subscribe(data => { 
+        let extension = this.getExtension(request.format)
+        this.saveByteArray("rdf_converted." + extension, data)
+      });
+    } else {
+      this.apiService.postRDFDataRequest(request, this.file).subscribe(data => { 
+        let extension = this.getExtension(request.format)
+        this.saveByteArray("rdf_converted." + extension, data)
+      });
+    }
   }
 
   isNumeric(value) {
