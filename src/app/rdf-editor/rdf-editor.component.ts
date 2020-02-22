@@ -6,6 +6,7 @@ import { RDFRequest } from '../models/RDFRequest';
 import { FileUploadService } from '../services/file-upload.service';
 import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from '../services/authentication.service';
+import { FileDownloaderService } from '../services/file-downloader.service';
 
 @Component({
   selector: 'app-rdf-editor',
@@ -26,7 +27,8 @@ export class RdfEditorComponent implements OnInit {
               private fb: FormBuilder,
               private apiService: FileUploadService,
               private titleService: Title,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService,
+              private fileDownloadService: FileDownloaderService) { }
 
   ngOnInit() {
     this.titleService.setTitle("RDFTransformer - Editor")
@@ -60,37 +62,16 @@ export class RdfEditorComponent implements OnInit {
     request.types = this.inputTypes;
     if(this.authenticationService.isLoggedIn()) {
       this.apiService.postRDFDataUserRequest(this.authenticationService.getCurrentUser(), request, this.file).subscribe(data => { 
-        let extension = this.getExtension(request.format)
-        this.saveByteArray("rdf_converted." + extension, data)
+        this.fileDownloadService.download("rdf_converted.", data, request.format);
       });
     } else {
       this.apiService.postRDFDataRequest(request, this.file).subscribe(data => { 
-        let extension = this.getExtension(request.format)
-        this.saveByteArray("rdf_converted." + extension, data)
+        this.fileDownloadService.download("rdf_converted.", data, request.format);
       });
     }
   }
 
   isNumeric(value) {
     return !isNaN(Number(value));
-  }
-
-
-  saveByteArray(name, byte) : void {
-    let file = new File([byte], name, {type:'text/plain'})
-    let link = document.createElement('a');
-    link.href = window.URL.createObjectURL(file);
-    link.download = name;
-    link.click();
-  }
-
-  getExtension(format:string) : string {
-    if(format === "RDF/XML"){
-      return "xml";
-    }else if(format === "RDF/JSON"){
-      return "json";
-    } else {
-      return "txt";
-    }
   }
 }

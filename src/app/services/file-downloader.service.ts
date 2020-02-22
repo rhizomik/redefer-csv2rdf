@@ -1,0 +1,38 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FileDownloaderService {
+
+  constructor() { }
+
+  download(name: string, byte: any, format: string) : void {
+    let file;
+    if(format === null){
+      file = new File([byte], name, {type:'text/plain'})
+    } else{
+      file = new File([byte], name + this.getExtension(format), {type:'text/plain'})
+    }
+    let link = document.createElement('a');
+    link.href = window.URL.createObjectURL(file);
+    link.download = name;
+    link.click();
+  }
+
+  getExtension(format:string) : string {
+    if(format === "RDF/XML"){
+      return "xml";
+    }else if(format === "RDF/JSON"){
+      return "json";
+    }else if(format ==="csv"){
+      return "csv"
+    } else {
+      return "txt";
+    }
+  }
+  makeFile(name, format, byte) : File {
+    format = this.getExtension(format);
+    return new File([byte], name, {type:'text/plain'})
+  }
+}

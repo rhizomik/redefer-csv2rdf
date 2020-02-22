@@ -18,6 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthenticationService } from './services/authentication.service';
+import { MyTransformationsComponent } from './my-transformations/my-transformations.component';
+import { MyTransformationsService } from './services/my-transformations.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { AuthenticationService } from './services/authentication.service';
     HomepageComponent,
     LoginFormComponent,
     RegisterComponent,
+    MyTransformationsComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +48,7 @@ import { AuthenticationService } from './services/authentication.service';
     FileUploadService,
     Title,
     AuthenticationService,
+    MyTransformationsService,
   ],
   bootstrap: [AppComponent]
 })
