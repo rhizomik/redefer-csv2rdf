@@ -8,15 +8,18 @@ export class FileDownloaderService {
   constructor() { }
 
   download(name: string, byte: any, format: string) : void {
-    let file;
+    let file: File;
     if(format === null){
       file = new File([byte], name, {type:'text/plain'})
     } else{
       file = new File([byte], name + this.getExtension(format), {type:'text/plain'})
+      console.log(file);
+
     }
+    console.log(file);
     let link = document.createElement('a');
     link.href = window.URL.createObjectURL(file);
-    link.download = name;
+    link.download = file.name;
     link.click();
   }
 
