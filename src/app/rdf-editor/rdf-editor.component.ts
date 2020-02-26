@@ -7,6 +7,7 @@ import { FileUploadService } from '../services/file-upload.service';
 import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from '../services/authentication.service';
 import { FileDownloaderService } from '../services/file-downloader.service';
+import { VocabSuggestService } from '../services/vocab-suggest.service';
 
 @Component({
   selector: 'app-rdf-editor',
@@ -28,7 +29,8 @@ export class RdfEditorComponent implements OnInit {
               private apiService: FileUploadService,
               private titleService: Title,
               private authenticationService: AuthenticationService,
-              private fileDownloadService: FileDownloaderService) { }
+              private fileDownloadService: FileDownloaderService,
+              private vocabSuggestionService: VocabSuggestService) { }
 
   ngOnInit() {
     this.titleService.setTitle("RDFTransformer - Editor")
@@ -69,6 +71,10 @@ export class RdfEditorComponent implements OnInit {
         this.fileDownloadService.download("rdf_converted.", data, request.format);
       });
     }
+  }
+
+  getVocab(query: string) {
+    this.vocabSuggestionService.getVocab(query);
   }
 
   isNumeric(value) {
