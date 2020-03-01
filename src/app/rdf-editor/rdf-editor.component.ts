@@ -8,6 +8,10 @@ import { Title } from '@angular/platform-browser';
 import { AuthenticationService } from '../services/authentication.service';
 import { FileDownloaderService } from '../services/file-downloader.service';
 import { VocabSuggestService } from '../services/vocab-suggest.service';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
+import { VocabQuery } from '../models/VocabQuery';
+import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-rdf-editor',
@@ -16,12 +20,13 @@ import { VocabSuggestService } from '../services/vocab-suggest.service';
 })
 export class RdfEditorComponent implements OnInit {
 
-  private file: File;
-  private headers: Array<String> = [];
-  private lines: Array<Array<String>> = [];
+  file: File;
+  headers: Array<String> = [];
+  lines: Array<Array<String>> = [];
 
-  private formGroup: FormGroup;
-  private inputTypes: Array<string>;
+  formGroup: FormGroup;
+  inputTypes: Array<string>;
+  searching: boolean;
 
   constructor(private stateService: StateServiceService,
               private papa: Papa,
@@ -35,6 +40,7 @@ export class RdfEditorComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle("RDFTransformer - Editor")
     this.file = this.stateService.data;
+    this.searching = false;
     this.stateService.data = null;
     this.papa.parse(this.file, {
       complete: (result) => {
@@ -55,7 +61,7 @@ export class RdfEditorComponent implements OnInit {
       inputFormat: '',
     })
   }
-  
+
   onSubmit() {
     let request = new RDFRequest();
     request.subject = this.formGroup.value.inputSubject;
@@ -73,11 +79,24 @@ export class RdfEditorComponent implements OnInit {
     }
   }
 
-  getVocab(query: string) {
-    this.vocabSuggestionService.getVocab(query);
-  }
+  search = (text$: Observable<string>) => {
+    return text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap(term => term.length < 3 
+        ? []
+        : this.vocabSuggestionService.getVocabsCall(term).pipe(
+          map(values => values.results.map( value => {
+            return value.uri[0];
+          }))
+        )) 
+     );
+    }
+
 
   isNumeric(value) {
     return !isNaN(Number(value));
   }
+
+
 }

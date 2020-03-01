@@ -29,7 +29,8 @@
                     <tr>
                         <ng-container *ngFor="let head of headers; let i = index;">
                             <th class="th-transparent">
-                                <input type="text" class="form-control" placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
+                                <input type="text" class="form-control" [ngbTypeahead]="search" 
+                                placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
                             </th>
                         </ng-container>
                     </tr>

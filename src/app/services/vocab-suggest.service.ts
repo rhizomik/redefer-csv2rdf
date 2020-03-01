@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { VocabQuery } from '../models/VocabQuery';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class VocabSuggestService {
     return this.http.get("https://lov.linkeddata.es/dataset/lov/api/v2/term/search?q=" + query);
   }
 
-  getVocab(query: string) {
+  getVocab(query: string) : Observable<Array<VocabQuery>> {
     let results = new Array<VocabQuery>();
     this.getVocabsCall(query).subscribe(data => {
       data.results.forEach(element => {
@@ -22,7 +22,7 @@ export class VocabSuggestService {
         results.push(element);
       });
     })
-    return results;
+    return of(results);
   }
 
 }

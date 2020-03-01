@@ -11,10 +11,10 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private registerForm: FormGroup;
-  private emptyForm = false;
-  private error = false;
-  private successfull = false;
+  registerForm: FormGroup;
+  emptyForm = false;
+  error = false;
+  successfull = false;
 
   constructor(private fb: FormBuilder,
               private titleService: Title,

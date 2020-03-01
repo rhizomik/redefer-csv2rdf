@@ -20,6 +20,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthenticationService } from './services/authentication.service';
 import { MyTransformationsComponent } from './my-transformations/my-transformations.component';
 import { MyTransformationsService } from './services/my-transformations.service';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { MyTransformationsService } from './services/my-transformations.service'
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbTypeaheadModule,
   ],
   providers: [
     FileUploadService,

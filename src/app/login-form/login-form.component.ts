@@ -10,9 +10,9 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./login-form.component.css']
 })
 export class LoginFormComponent implements OnInit {
-  private loginForm: FormGroup;
-  private emptyForm = false;
-  private error = false;
+  loginForm: FormGroup;
+  emptyForm = false;
+  error = false;
 
   constructor(private fb: FormBuilder,
               private titleService: Title,
