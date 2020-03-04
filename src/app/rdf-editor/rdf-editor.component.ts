@@ -27,6 +27,7 @@ export class RdfEditorComponent implements OnInit {
   formGroup: FormGroup;
   inputTypes: Array<string>;
   searching: boolean;
+  isFormInvalid: boolean;
 
   constructor(private stateService: StateServiceService,
               private papa: Papa,
@@ -38,6 +39,7 @@ export class RdfEditorComponent implements OnInit {
               private vocabSuggestionService: VocabSuggestService) { }
 
   ngOnInit() {
+    this.isFormInvalid = false;
     this.titleService.setTitle("RDFTransformer - Editor")
     this.file = this.stateService.data;
     this.searching = false;
@@ -68,14 +70,19 @@ export class RdfEditorComponent implements OnInit {
     request.uri = this.formGroup.value.inputUri;
     request.format = this.formGroup.value.inputFormat;
     request.types = this.inputTypes;
-    if(this.authenticationService.isLoggedIn()) {
-      this.apiService.postRDFDataUserRequest(this.authenticationService.getCurrentUser(), request, this.file).subscribe(data => { 
-        this.fileDownloadService.download("rdf_converted.", data, request.format);
-      });
+    if(this.validateFormInput(request.subject, request.uri, request.format, request.types)) {
+      this.isFormInvalid = false;
+      if(this.authenticationService.isLoggedIn()) {
+        this.apiService.postRDFDataUserRequest(this.authenticationService.getCurrentUser(), request, this.file).subscribe(data => { 
+          this.fileDownloadService.download("rdf_converted.", data, request.format);
+        });
+      } else {
+        this.apiService.postRDFDataRequest(request, this.file).subscribe(data => { 
+          this.fileDownloadService.download("rdf_converted.", data, request.format);
+        });
+      }
     } else {
-      this.apiService.postRDFDataRequest(request, this.file).subscribe(data => { 
-        this.fileDownloadService.download("rdf_converted.", data, request.format);
-      });
+      this.isFormInvalid = true;
     }
   }
 
@@ -98,5 +105,16 @@ export class RdfEditorComponent implements OnInit {
     return !isNaN(Number(value));
   }
 
+  validateFormInput(subject: string, uri: string, format: string, input: string[]){
+    if(subject === "" || uri === "" || format === "" || input.length != this.headers.length){
+      return false;
+    }
+    for(let i in input) {
+      if(input[i] === ""){
+        return false;
+      }
+    }
+    return true;
+  }
 
 }
