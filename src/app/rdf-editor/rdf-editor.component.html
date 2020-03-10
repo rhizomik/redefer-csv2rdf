@@ -35,7 +35,18 @@
                             <th class="th-transparent">
                                 <input type="text" class="form-control" [ngbTypeahead]="search" 
                                     placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
-                            </th>
+                                    <br>
+                                        <select id="inputFormat" class="form-control" formControlName="inputDataType">
+                                            <option selected>DataType</option>
+                                            <option>Text</option>
+                                            <option>Integer</option>
+                                            <option>Non Integer</option>
+                                            <option>Boolean</option>
+                                            <option>Date</option>
+                                        </select>
+                                    
+                                </th>
+                            
                         </ng-container>
                     </tr>
                     

@@ -5,6 +5,7 @@ export class RDFRequest {
     uri: string;
     format: string;
     types: Array<string>;
+    dataTypes: string;
   /*  headers: Array<String>;
     lines: Array<Array<String>>;*/
 }

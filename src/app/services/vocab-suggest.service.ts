@@ -11,7 +11,7 @@ export class VocabSuggestService {
   constructor(private http: HttpClient) { }
 
   getVocabsCall(query: string): Observable<any> {
-    return this.http.get("https://lov.linkeddata.es/dataset/lov/api/v2/term/search?q=" + query);
+    return this.http.get("https://lov.linkeddata.es/dataset/lov/api/v2/term/search?q=" + query+ "&type=property");
   }
 
   getVocab(query: string) : Observable<Array<VocabQuery>> {

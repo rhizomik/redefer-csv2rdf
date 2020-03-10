@@ -61,6 +61,7 @@ export class RdfEditorComponent implements OnInit {
       inputSubject: '',
       inputUri: '',
       inputFormat: '',
+      inputDataTypes: ''
     })
   }
 
@@ -70,7 +71,8 @@ export class RdfEditorComponent implements OnInit {
     request.uri = this.formGroup.value.inputUri;
     request.format = this.formGroup.value.inputFormat;
     request.types = this.inputTypes;
-    if(this.validateFormInput(request.subject, request.uri, request.format, request.types)) {
+    request.dataTypes = this.formGroup.value.inputDataTypes;
+    if(this.validateFormInput(request.subject, request.uri, request.format, request.types, request.dataTypes)) {
       this.isFormInvalid = false;
       if(this.authenticationService.isLoggedIn()) {
         this.apiService.postRDFDataUserRequest(this.authenticationService.getCurrentUser(), request, this.file).subscribe(data => { 
@@ -105,8 +107,8 @@ export class RdfEditorComponent implements OnInit {
     return !isNaN(Number(value));
   }
 
-  validateFormInput(subject: string, uri: string, format: string, input: string[]){
-    if(subject === "" || uri === "" || format === "" || input.length != this.headers.length){
+  validateFormInput(subject: string, uri: string, format: string, input: string[], dataTypes: string){
+    if(subject === "" || uri === "" || format === "" || dataTypes === "" || input.length != this.headers.length){
       return false;
     }
     for(let i in input) {
