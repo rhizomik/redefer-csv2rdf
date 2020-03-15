@@ -15,6 +15,7 @@
                     <select id="inputFormat" class="form-control" formControlName="inputFormat">
                         <option selected>RDF/XML</option>
                         <option>RDF/JSON</option>
+                        <option>TURTLE</option>
                         <option>N-Triples</option>
                     </select>
                     <br><br>
@@ -36,11 +37,11 @@
                                 <input type="text" class="form-control" [ngbTypeahead]="search" 
                                     placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
                                     <br>
-                                        <select id="inputFormat" class="form-control" formControlName="inputDataType">
+                                        <select id="inputFormat" class="form-control" [(ngModel)]="dataTypes[i]" [ngModelOptions] = "{standalone: true}">
                                             <option selected>DataType</option>
                                             <option>Text</option>
                                             <option>Integer</option>
-                                            <option>Non Integer</option>
+                                            <option>NonInteger</option>
                                             <option>Boolean</option>
                                             <option>Date</option>
                                         </select>

@@ -26,6 +26,7 @@ export class RdfEditorComponent implements OnInit {
 
   formGroup: FormGroup;
   inputTypes: Array<string>;
+  dataTypes: Array<string>;
   searching: boolean;
   isFormInvalid: boolean;
 
@@ -56,12 +57,12 @@ export class RdfEditorComponent implements OnInit {
         });
       }
     });
-    this.inputTypes = new Array(this.headers.length)
+    this.inputTypes = new Array(this.headers.length);
+    this.dataTypes = new Array(this.headers.length);
     this.formGroup = this.fb.group({
       inputSubject: '',
       inputUri: '',
       inputFormat: '',
-      inputDataTypes: ''
     })
   }
 
@@ -71,7 +72,8 @@ export class RdfEditorComponent implements OnInit {
     request.uri = this.formGroup.value.inputUri;
     request.format = this.formGroup.value.inputFormat;
     request.types = this.inputTypes;
-    request.dataTypes = this.formGroup.value.inputDataTypes;
+    request.dataTypes = this.parseDataType(this.dataTypes);
+    console.log(request);
     if(this.validateFormInput(request.subject, request.uri, request.format, request.types, request.dataTypes)) {
       this.isFormInvalid = false;
       if(this.authenticationService.isLoggedIn()) {
@@ -102,17 +104,36 @@ export class RdfEditorComponent implements OnInit {
      );
     }
 
+  parseDataType(values: Array<string>) {
+    let newValues = new Array<string>();
+    for(let index in values){
+      if(values[index] === "Integer") {
+        newValues[index] = "_integer";
+      }else if(values[index] === "Boolean") {
+        newValues[index] = "_boolean";
+      } else if(values[index] === "Date") {
+        newValues[index] = "_date";
+      }else if(values[index] === "Text") {
+        newValues[index] = "text";
+      } else {
+        newValues[index] = values[index];
+      }
+      
+    }
+    
+    return newValues;
+  }
 
   isNumeric(value) {
     return !isNaN(Number(value));
   }
 
-  validateFormInput(subject: string, uri: string, format: string, input: string[], dataTypes: string){
-    if(subject === "" || uri === "" || format === "" || dataTypes === "" || input.length != this.headers.length){
+  validateFormInput(subject: string, uri: string, format: string, input: string[], dataTypes: string[]){
+    if(subject === "" || uri === "" || format === "" || input.length != this.headers.length){
       return false;
     }
     for(let i in input) {
-      if(input[i] === ""){
+      if(input[i] === "" || dataTypes[i] === ""){
         return false;
       }
     }
