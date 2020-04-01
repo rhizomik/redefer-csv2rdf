@@ -73,7 +73,6 @@ export class RdfEditorComponent implements OnInit {
     request.format = this.formGroup.value.inputFormat;
     request.types = this.inputTypes;
     request.dataTypes = this.parseDataType(this.dataTypes);
-    console.log(request);
     if(this.validateFormInput(request.subject, request.uri, request.format, request.types, request.dataTypes)) {
       this.isFormInvalid = false;
       if(this.authenticationService.isLoggedIn()) {
@@ -98,7 +97,7 @@ export class RdfEditorComponent implements OnInit {
         ? []
         : this.vocabSuggestionService.getVocabsCall(term).pipe(
           map(values => values.results.map( value => {
-            return value.uri[0];
+            return value.prefixedName[0];
           }))
         )) 
      );
