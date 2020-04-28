@@ -3,6 +3,12 @@ import { MyTransformationsService } from '../services/my-transformations.service
 import { RdfRef } from '../models/RdfRef';
 import { FileDownloaderService } from '../services/file-downloader.service';
 import { FilesList } from '../models/FileList';
+import { FileUploadService } from '../services/file-upload.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { RDFRequest } from '../models/RDFRequest';
+import { Router } from '@angular/router';
+import { RDFRequestTransportation } from '../services/rdf-request-transportation.service';
+import { StateServiceService } from '../services/state-service.service';
 
 
 @Component({
@@ -14,7 +20,11 @@ export class MyTransformationsComponent implements OnInit {
   fileList = new FilesList();
 
   constructor(private transformationsService: MyTransformationsService,
-              private fileDownloadService: FileDownloaderService) { }
+              private fileDownloadService: FileDownloaderService,
+              private authenticationService: AuthenticationService,
+              private router: Router,
+              private rdfRequestTransportation: RDFRequestTransportation,
+              private stateService: StateServiceService) { }
 
   ngOnInit() {
     this.transformationsService.getAllTransformations().subscribe(data => {
@@ -32,4 +42,19 @@ export class MyTransformationsComponent implements OnInit {
     })
   }
 
+  editFile(i: number): void {
+    let fileName = this.fileList.csvFiles[i];
+    this.transformationsService.getEditInfo(this.authenticationService.getCurrentUser(), fileName).subscribe(data => {
+      let info = data as any
+      let request = new RDFRequest()
+      request.dataTypes = info.dataTypes;
+      request.format = info.format;
+      request.subject = info.subject;
+      request.types = info.types;
+      request.uri = info.uri;
+      this.rdfRequestTransportation.data = request;
+      this.stateService.data = new File([info.csvFile], 'name.csv', {type:'text/csv'});
+      this.router.navigate(['/editor'])
+    })
+  }
 }

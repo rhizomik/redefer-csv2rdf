@@ -50,9 +50,6 @@ noFile: boolean = false;
         this.excessiveFiles = false;
         this.stateService.data = fileToUpload;
         this.router.navigate(['/editor'])
-   /*     this.fileUploadService.postFileToApi(fileToUpload).subscribe(data => {
-          this.data = data; 
-        });*/
       }else{
         this.wrongFormat = true;
       }

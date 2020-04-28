@@ -12,6 +12,7 @@ import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, map } from 'rxjs/operators';
 import { VocabQuery } from '../models/VocabQuery';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { RDFRequestTransportation } from '../services/rdf-request-transportation.service';
 
 @Component({
   selector: 'app-rdf-editor',
@@ -37,7 +38,8 @@ export class RdfEditorComponent implements OnInit {
               private titleService: Title,
               private authenticationService: AuthenticationService,
               private fileDownloadService: FileDownloaderService,
-              private vocabSuggestionService: VocabSuggestService) { }
+              private vocabSuggestionService: VocabSuggestService,
+              private rdfRequestTransportation: RDFRequestTransportation) { }
 
   ngOnInit() {
     this.isFormInvalid = false;
@@ -57,13 +59,24 @@ export class RdfEditorComponent implements OnInit {
         });
       }
     });
-    this.inputTypes = new Array(this.headers.length);
-    this.dataTypes = new Array(this.headers.length);
-    this.formGroup = this.fb.group({
-      inputSubject: '',
-      inputUri: '',
-      inputFormat: '',
-    })
+    if(this.rdfRequestTransportation.data == null) {
+      this.inputTypes = new Array(this.headers.length);
+      this.dataTypes = new Array(this.headers.length);
+      this.formGroup = this.fb.group({
+        inputSubject: '',
+        inputUri: '',
+        inputFormat: '',
+      })
+    } else {
+      this.inputTypes = this.rdfRequestTransportation.data.types;
+      this.dataTypes = this.parseDataTypeInverse(this.rdfRequestTransportation.data.dataTypes);
+      this.formGroup = this.fb.group({
+        inputSubject: this.rdfRequestTransportation.data.subject,
+        inputUri: this.rdfRequestTransportation.data.uri,
+        inputFormat: this.rdfRequestTransportation.data.format,
+      })
+      this.rdfRequestTransportation.data = null;
+    }
   }
 
   onSubmit() {
@@ -116,10 +129,26 @@ export class RdfEditorComponent implements OnInit {
         newValues[index] = "text";
       } else {
         newValues[index] = values[index];
-      }
-      
-    }
-    
+      } 
+    } 
+    return newValues;
+  }
+
+  parseDataTypeInverse(values: Array<string>) {
+    let newValues = new Array<string>();
+    for(let index in values){
+      if(values[index] === "_integer") {
+        newValues[index] = "Integer";
+      }else if(values[index] === "_boolean") {
+        newValues[index] = "Boolean";
+      } else if(values[index] === "_date") {
+        newValues[index] = "Date";
+      }else if(values[index] === "text") {
+        newValues[index] = "Text";
+      } else {
+        newValues[index] = values[index];
+      } 
+    } 
     return newValues;
   }
 

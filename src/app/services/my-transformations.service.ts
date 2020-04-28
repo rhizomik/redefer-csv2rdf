@@ -39,7 +39,18 @@ export class MyTransformationsService {
       }
     const formData = new FormData();
     formData.append('requestedFile', fileName);
+
     return this.http.post(this.url + '/download-transformations', formData, requestOptions);
+  }
+
+  getEditInfo(user: User, fileName: string) {
+    const authorization = this.authenticationService.generateAuthorization(user.username, user.password);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: authorization
+      })
+    };
+    return this.http.get(this.url + '/get-request/' + fileName, httpOptions);
   }
 
 }

@@ -12,6 +12,7 @@
                 {{fileList.csvFiles[i]}}  / {{fileList.rdfFiles[i]}}
                 <br>
                 <input id ="submit" name="submit" type="submit" value="download" (click)="downloadFile(i)">
+                <input id ="edit" name = "edit" type="submit" value="edit" (click)="editFile(i)">
             </li>
             
         </ul>
