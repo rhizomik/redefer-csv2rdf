@@ -1,81 +1,107 @@
 <section id="editor">
 
         <form id="formTransformer" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="inputSubject">Subject</label>
-                    <select id="inputSubject" class="form-control" formControlName="inputSubject">
-                        <ng-container *ngFor="let head of headers">
-                            <option>{{head}}</option>
-                        </ng-container>
-                    </select>
-                    <label for="inputUri">URI</label>
-                    <input type="text" class="form-control" id="inputUri" formControlName="inputUri" placeholder="http://yourUri.com/">
-                    <label for="inputFormat">RDF File format</label>
-                    <select id="inputFormat" class="form-control" formControlName="inputFormat">
-                        <option selected>RDF/XML</option>
-                        <option>RDF/JSON</option>
-                        <option>TURTLE</option>
-                        <option>N-Triples</option>
-                    </select>
-                    <br><br>
-                    <div id="button_right">
-                        <button type="submit" id="generateButton" class="btn btn-light">GENERATE RDF</button>
-                    </div>
-                </div>  
+         
+                <div class="col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="inputSubject">Subject</label>
+                            <select id="inputSubject" class="form-control" formControlName="inputSubject">
+                                <ng-container *ngFor="let head of headers">
+                                    <option>{{head}}</option>
+                                </ng-container>
+                            </select>
+                        </div>    
+                        
+                        <div class="col-sm-4">
+                            <label for="inputUri">URI</label>
+                            <input type="text" class="form-control" id="inputUri" formControlName="inputUri" placeholder="http://yourUri.com/">
+                        </div>
+            
+                        <div class="col-sm-4">
+                            <label for="inputFormat">RDF File format</label>
+                            <select id="inputFormat" class="form-control" formControlName="inputFormat">
+                                <option selected>RDF/XML</option>
+                                <option>RDF/JSON</option>
+                                <option>TURTLE</option>
+                                <option>N-Triples</option>
+                            </select>
+                        </div>    
+                   
+                </div>
+            
+                <div id="button_right">
+                    <button type="submit" id="generateButton" class="btn btn-light">GENERATE RDF</button>
+                </div>
+                  
             </div>
-            <div *ngIf="isFormInvalid === true">
-                <p id="error_message">
-                    *Please fill all the camps.
-                </p>
-            </div>
-            <table class="table table-bordered table-hover table-condensed">
-                <thead>
-                    <tr>
-                        <ng-container *ngFor="let head of headers; let i = index;">
-                            <th class="th-transparent">
-                                <input type="text" class="form-control" [ngbTypeahead]="search" 
-                                    placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
-                                    <br>
-                                        <select id="inputFormat" class="form-control" [(ngModel)]="dataTypes[i]" [ngModelOptions] = "{standalone: true}">
-                                            <option selected>DataType</option>
-                                            <option>Text</option>
-                                            <option>Integer</option>
-                                            <option>NonInteger</option>
-                                            <option>Boolean</option>
-                                            <option>Date</option>
-                                        </select>
-                                    
-                                </th>
-                            
-                        </ng-container>
-                    </tr>
-                    
-                    <tr>
-                    <ng-container *ngFor="let head of headers">
-                            <th>{{ head }}</th>
-                    </ng-container>
-                    </tr>
-                            
-                </thead>
-                <tbody>
-                    <ng-container *ngFor="let line of lines">
+            <h5>Instructions</h5>
+            <p>1) Select the Subject of your csv, the URI of your resources and the format you wish to receive the RDF. <br>
+            2) Fill the Type field with an rdf property. It uses an autocomplete using lov.linkeddata dataset. So just start typing and decide what type fits best! <br>
+            3) Fill the DataType field and select what type of data is your data. Text, NonInteger, Integer, Date or Boolean. <br>
+            4) Generate the RDF!</p>
+            <div class="alert alert-danger" role="alert" *ngIf="isFormInvalid === true">
+                *Please fill all the camps.
+              </div>
+            <table id="dtVerticalScrollExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+                width="100%">
+                    <thead>
                         <tr>
-                            <ng-container *ngFor="let value of line">
-                                <ng-container *ngIf="isNumeric(value)">
-                                    <td align="right">{{ value }}</td>
-                                </ng-container>
-                                <ng-container *ngIf="!isNumeric(value)">
-                                    <td>{{ value }}</td>
-                                </ng-container>
+                            <ng-container *ngFor="let head of headers; let i = index;">
+                                <th class="th-transparent">
+                                    <input type="text" class="form-control" [ngbTypeahead]="search" 
+                                        placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
+                                        <br>
+                                            <select id="inputFormat" class="form-control" [(ngModel)]="dataTypes[i]" [ngModelOptions] = "{standalone: true}">
+                                                <option selected>DataType</option>
+                                                <option>Text</option>
+                                                <option>Integer</option>
+                                                <option>NonInteger</option>
+                                                <option>Boolean</option>
+                                                <option>Date</option>
+                                            </select>
+                                        
+                                    </th>
+                                
                             </ng-container>
                         </tr>
+                        
+                        <tr>
+                        <ng-container *ngFor="let head of headers">
+                                <th class="th-sm" scope="col">{{ head }}</th>
+                        </ng-container>
+                        </tr>
+                                
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let line of lines">
+                            <tr>
+                                <ng-container *ngFor="let value of line">
+                                    <ng-container *ngIf="isNumeric(value)">
+                                        <td align="left">{{ value }}</td>
+                                    </ng-container>
+                                    <ng-container *ngIf="!isNumeric(value)">
+                                        <td>{{ value }}</td>
+                                    </ng-container>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                    <tfoot>
+                        <ng-container *ngFor="let head of headers">
+                            <th scope="col">{{ head }}</th>
                     </ng-container>
-                </tbody>
-            </table>
-
-            
+                    </tfoot>
+                </table>            
         </form>
     
-
+<script>
+$(document).ready(function () {
+$('#dtVerticalScrollExample').DataTable({
+"scrollY": "200px",
+"scrollCollapse": true,
+});
+$('.dataTables_length').addClass('bs-select');
+});
+</script>
 </section>

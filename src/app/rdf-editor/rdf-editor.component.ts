@@ -167,5 +167,5 @@ export class RdfEditorComponent implements OnInit {
     }
     return true;
   }
-
+ 
 }

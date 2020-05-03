@@ -2,7 +2,7 @@
     color:red;
 }
 #formTransformer{
-    margin-top: 10%;
+    margin-top: 7%;
     margin-left: 10%;
     margin-right: 10%;
     margin-bottom: 10%;
@@ -10,8 +10,9 @@
 }
 
 #button_right{
-    margin-left: 30%;
-    margin-top: 5%;
+
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 /*
 img{
@@ -23,7 +24,6 @@ img{
 }*/
 
 section{
-
     background-color: #676F7A;
     position: fixed;
     top: 0;
@@ -40,3 +40,4 @@ section{
     border-left: 1px solid transparent;
 
 }
+

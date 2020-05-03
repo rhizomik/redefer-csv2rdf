@@ -7,15 +7,15 @@
     <br>
         <h3>Your transformations</h3>
         <p>Here you have the history of all your transformations and ready to be downloaded with just one click!</p>
-        <ul>
+        <ol>
             <li *ngFor="let file of fileList.csvFiles; let i = index">
-                {{fileList.csvFiles[i]}}  / {{fileList.rdfFiles[i]}}
+                {{fileList.csvFiles[i]}}
                 <br>
-                <input id ="submit" name="submit" type="submit" value="download" (click)="downloadFile(i)">
-                <input id ="edit" name = "edit" type="submit" value="edit" (click)="editFile(i)">
+                <button class="btn btn-light"id ="submit" name="submit" type="submit" (click)="downloadFile(i)">DOWNLOAD RDF</button>
+                <button class="btn btn-light" id ="edit" name = "edit" type="submit" (click)="editFile(i)">EDIT</button>
             </li>
             
-        </ul>
+        </ol>
     </div>
 
 </section>
