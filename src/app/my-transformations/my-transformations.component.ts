@@ -53,7 +53,7 @@ export class MyTransformationsComponent implements OnInit {
       request.types = info.types;
       request.uri = info.uri;
       this.rdfRequestTransportation.data = request;
-      this.stateService.data = new File([info.csvFile], 'name.csv', {type:'text/csv'});
+      this.stateService.data = new File([info.csvFile], info.fileName, {type:'text/csv'});
       this.router.navigate(['/editor'])
     })
   }

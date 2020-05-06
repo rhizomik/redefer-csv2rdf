@@ -29,8 +29,7 @@ export class RdfEditorComponent implements OnInit {
   inputTypes: Array<string>;
   dataTypes: Array<string>;
   searching: boolean;
-  isFormInvalid: boolean;
-
+  isFormInvalid: boolean;  
   constructor(private stateService: StateServiceService,
               private papa: Papa,
               private fb: FormBuilder,
@@ -70,6 +69,7 @@ export class RdfEditorComponent implements OnInit {
     } else {
       this.inputTypes = this.rdfRequestTransportation.data.types;
       this.dataTypes = this.parseDataTypeInverse(this.rdfRequestTransportation.data.dataTypes);
+      this.inputTypes = this.rdfRequestTransportation.data.types;
       this.formGroup = this.fb.group({
         inputSubject: this.rdfRequestTransportation.data.subject,
         inputUri: this.rdfRequestTransportation.data.uri,
@@ -110,7 +110,7 @@ export class RdfEditorComponent implements OnInit {
         ? []
         : this.vocabSuggestionService.getVocabsCall(term).pipe(
           map(values => values.results.map( value => {
-            return value.prefixedName[0];
+            return value.uri[0];
           }))
         )) 
      );
