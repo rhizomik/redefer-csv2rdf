@@ -53,8 +53,7 @@
                                         placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
                                         <br>
                                             <select id="inputFormat" class="form-control" [(ngModel)]="dataTypes[i]" [ngModelOptions] = "{standalone: true}">
-                                                <option selected>DataType</option>
-                                                <option>Text</option>
+                                                <option selected [value]="Text">Text</option>
                                                 <option>Integer</option>
                                                 <option>Decimal</option>
                                                 <option>Boolean</option>
