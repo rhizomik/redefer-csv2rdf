@@ -25,17 +25,21 @@ export class FileDownloaderService {
 
   getExtension(format:string) : string {
     if(format === "RDF/XML"){
-      return "xml";
+      return "rdf";
     }else if(format === "RDF/JSON"){
       return "json";
     }else if(format ==="csv"){
-      return "csv"
-    } else {
+      return "csv";
+    } else if(format === "TURTLE"){
+      return "ttl";
+    }else if(format === "N-Triples"){
+      return "nt";
+    }else{
       return "txt";
     }
   }
   makeFile(name, format, byte) : File {
     format = this.getExtension(format);
-    return new File([byte], name, {type:'text/plain'})
+    return new File([byte], name + format, {type:'text/plain'})
   }
 }
