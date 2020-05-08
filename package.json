@@ -23,7 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "bootstrap": "^4.0.0-alpha.4",
     "install": "^0.13.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "ngx-papaparse": "^4.0.4",
     "npm": "^6.13.7",
     "rxjs": "~6.5.4",
