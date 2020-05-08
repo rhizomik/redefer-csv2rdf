@@ -128,7 +128,9 @@ export class RdfEditorComponent implements OnInit {
       }else if(values[index] === "Text") {
         newValues[index] = "text";
       } else if(values[index] === "Decimal"){
-        newValues[index] = "NonInteger"
+        newValues[index] = "NonInteger";
+      } else if(values[index] === "Resource") {
+        newValues[index] = "resource";
       } else {
         newValues[index] = values[index];
       } 
@@ -149,6 +151,8 @@ export class RdfEditorComponent implements OnInit {
         newValues[index] = "Text";
       }else if(values[index] === "NonInteger") {
         newValues[index] = "Decimal";
+      } else if(values[index] === "resource") {
+        newValues[index] = "Resource";
       }else {
         newValues[index] = values[index];
       } 
