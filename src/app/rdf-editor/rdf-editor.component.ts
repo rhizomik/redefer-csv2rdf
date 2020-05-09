@@ -46,18 +46,8 @@ export class RdfEditorComponent implements OnInit {
     this.file = this.stateService.data;
     this.searching = false;
     this.stateService.data = null;
-    this.papa.parse(this.file, {
-      complete: (result) => {
-        this.headers = result.data[0];
-        result.data.map((item, index) => {
-          if(index === 0) {
-            this.headers = item;
-          } else if (item.length !== 1){
-            this.lines.push(item);
-          }   
-        });
-      }
-    });
+    this.loadPreviewCsv()
+    
     if(this.rdfRequestTransportation.data == null) {
       this.inputTypes = new Array(this.headers.length);
       this.dataTypes = new Array(this.headers.length);
@@ -101,7 +91,22 @@ export class RdfEditorComponent implements OnInit {
       this.isFormInvalid = true;
     }
   }
-
+  
+  loadPreviewCsv(){
+    this.papa.parse(this.file,{
+      preview: 20, //only first 20
+      complete: (result) => {
+        this.headers = result.data[0];
+        result.data.map((item, index) => {
+          if(index === 0) {
+            this.headers = item;
+          } else if (item.length !== 1){
+            this.lines.push(item);
+          }   
+        });
+      }
+    });
+  }
   search = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(200),
