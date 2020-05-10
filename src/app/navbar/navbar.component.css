@@ -4,3 +4,7 @@
 .dropdown-item:hover{
     background-color: grey;
 }
+#mainNav{
+    background-color: black;
+    padding: .01rem;
+}

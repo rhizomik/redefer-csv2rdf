@@ -21,6 +21,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { MyTransformationsComponent } from './my-transformations/my-transformations.component';
 import { MyTransformationsService } from './services/my-transformations.service';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     HttpClientModule,
     NgbTypeaheadModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     FileUploadService,
