@@ -46,18 +46,8 @@ export class RdfEditorComponent implements OnInit {
     this.file = this.stateService.data;
     this.searching = false;
     this.stateService.data = null;
-    this.papa.parse(this.file, {
-      complete: (result) => {
-        this.headers = result.data[0];
-        result.data.map((item, index) => {
-          if(index === 0) {
-            this.headers = item;
-          } else if (item.length !== 1){
-            this.lines.push(item);
-          }   
-        });
-      }
-    });
+    this.loadPreviewCsv()
+    
     if(this.rdfRequestTransportation.data == null) {
       this.inputTypes = new Array(this.headers.length);
       this.dataTypes = new Array(this.headers.length);
@@ -101,7 +91,24 @@ export class RdfEditorComponent implements OnInit {
       this.isFormInvalid = true;
     }
   }
-
+  
+  loadPreviewCsv(){
+    this.papa.parse(this.file,{
+      preview: 6, //only first 20
+      complete: (result) => {
+        console.log(result)
+        this.headers = result.data[0];
+        result.data.map((item, index) => {
+          if(index === 0) {
+            this.headers = item;
+          } else if (item.length !== 1){ // to avoid errors if a csv has a bad delimiter
+            this.lines.push(item);
+          }   
+        });
+      }
+    });
+  }
+  
   search = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(200),
@@ -128,7 +135,9 @@ export class RdfEditorComponent implements OnInit {
       }else if(values[index] === "Text") {
         newValues[index] = "text";
       } else if(values[index] === "Decimal"){
-        newValues[index] = "NonInteger"
+        newValues[index] = "NonInteger";
+      } else if(values[index] === "Resource") {
+        newValues[index] = "resource";
       } else {
         newValues[index] = values[index];
       } 
@@ -149,6 +158,8 @@ export class RdfEditorComponent implements OnInit {
         newValues[index] = "Text";
       }else if(values[index] === "NonInteger") {
         newValues[index] = "Decimal";
+      } else if(values[index] === "resource") {
+        newValues[index] = "Resource";
       }else {
         newValues[index] = values[index];
       } 

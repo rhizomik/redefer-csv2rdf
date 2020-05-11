@@ -6,7 +6,7 @@
     height: 200px;
     width: 50%;
     margin: 20px auto;
-    border: 2px dashed #1C8ADB;
+    border: 2px dashed #444444;
     border-radius: 10px;
 }
 .alert {
@@ -42,4 +42,8 @@
 
 .uploadfilecontainer {
     opacity: 0.8 !important;
+}
+
+#submitButton{
+    border-radius: 2em;
 }

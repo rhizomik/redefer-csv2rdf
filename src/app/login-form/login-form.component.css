@@ -18,3 +18,7 @@ section {
     padding-right: 0.5rem;
     margin-top:0.5rem;
 }
+
+#round-button{
+    border-radius: 2em;
+}
