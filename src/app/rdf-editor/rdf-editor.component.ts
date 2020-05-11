@@ -94,19 +94,21 @@ export class RdfEditorComponent implements OnInit {
   
   loadPreviewCsv(){
     this.papa.parse(this.file,{
-      preview: 20, //only first 20
+      preview: 6, //only first 20
       complete: (result) => {
+        console.log(result)
         this.headers = result.data[0];
         result.data.map((item, index) => {
           if(index === 0) {
             this.headers = item;
-          } else if (item.length !== 1){
+          } else if (item.length !== 1){ // to avoid errors if a csv has a bad delimiter
             this.lines.push(item);
           }   
         });
       }
     });
   }
+  
   search = (text$: Observable<string>) => {
     return text$.pipe(
       debounceTime(200),

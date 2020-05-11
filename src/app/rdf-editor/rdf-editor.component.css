@@ -33,11 +33,35 @@ section{
     overflow: auto;
 }
 
-
 .th-transparent{
     border-top: 1px solid transparent;
     border-right: 1px solid transparent;
     border-left: 1px solid transparent;
-
 }
 
+table tr td {
+    min-width: 75px;
+}
+
+table{
+    border-radius: 0.75em;
+}
+
+section form div.style-input{
+    background-color: #999999;
+    border: 2px solid #444444;
+    border-radius: 10px;
+    margin-bottom: 2em;
+    padding:1em;
+}
+section form div.style-input label{
+    text-align: center;
+    font-size: 1.2em;
+}
+.white-body{
+    background-color: white;
+}
+
+#generateButton{
+    border-radius: 2em;
+}
