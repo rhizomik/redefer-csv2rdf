@@ -65,3 +65,6 @@ section form div.style-input label{
 #generateButton{
     border-radius: 2em;
 }
+::ng-deep .dropdown-item.active{
+    background-color: royalblue;
+}
