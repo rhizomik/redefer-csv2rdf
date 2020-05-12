@@ -13,10 +13,7 @@ export class FileDownloaderService {
       file = new File([byte], name, {type:'text/plain'})
     } else{
       file = new File([byte], name + this.getExtension(format), {type:'text/plain'})
-      console.log(file);
-
     }
-    console.log(file);
     let link = document.createElement('a');
     link.href = window.URL.createObjectURL(file);
     link.download = file.name;

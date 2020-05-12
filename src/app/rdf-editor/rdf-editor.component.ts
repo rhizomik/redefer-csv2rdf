@@ -96,7 +96,6 @@ export class RdfEditorComponent implements OnInit {
     this.papa.parse(this.file,{
       preview: 6, //only first 20
       complete: (result) => {
-        console.log(result)
         this.headers = result.data[0];
         result.data.map((item, index) => {
           if(index === 0) {

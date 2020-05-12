@@ -36,7 +36,6 @@ export class MyTransformationsComponent implements OnInit {
     let fileName = this.fileList.csvFiles[i];
 
     this.transformationsService.getRequestedFiles(fileName).subscribe(data => {
-      console.log(data)
       this.fileDownloadService.download(fileName, data[0], null);
       this.fileDownloadService.download(this.fileList.rdfFiles[i], data[1], null);
     })

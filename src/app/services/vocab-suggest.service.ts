@@ -19,7 +19,6 @@ export class VocabSuggestService {
     let observable = new Observable(subscriber => {
       this.http.get("https://lov.linkeddata.es/dataset/lov/api/v2/term/search?q=" + query+ "&type=property").subscribe(data => {
         call = data as any; 
-        console.log(data);
         let allOccurrences = this.getAllOccurrences(call.results);
         let allReuses = this.getAllReuses(call.results);
         call.results.sort((a, b) => this.sortByScore(a, b, allOccurrences, allReuses));
