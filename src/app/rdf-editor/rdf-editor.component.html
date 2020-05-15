@@ -52,9 +52,9 @@
                             <ng-container *ngFor="let head of headers; let i = index;">
                                 <th class="th-transparent">
                                     <input type="text" class="form-control" [ngbTypeahead]="search" 
-                                        placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}">
+                                        placeholder="Type" [(ngModel)]="inputTypes[i]" [ngModelOptions] = "{standalone: true}" [resultFormatter]="resultFormatter" [inputFormatter]="inputFormatter">
                                         <br>
-                                            <select id="inputFormat" class="form-control" [(ngModel)]="dataTypes[i]" [ngModelOptions] = "{standalone: true}">
+                                            <select id="inputFormat" class="form-control" [(ngModel)]="dataTypes[i]" [ngModelOptions] = "{standalone: true}"> 
                                                 <option selected>Text</option>
                                                 <option>Integer</option>
                                                 <option>Decimal</option>
@@ -62,8 +62,7 @@
                                                 <option>Resource</option>
                                                 <option>Date</option>
                                             </select>                                        
-                                    </th>
-                                
+                                    </th>                                
                             </ng-container>
                         </tr>
                     </thead>

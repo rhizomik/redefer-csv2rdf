@@ -26,7 +26,7 @@ export class RdfEditorComponent implements OnInit {
   lines: Array<Array<String>> = [];
 
   formGroup: FormGroup;
-  inputTypes: Array<string>;
+  inputTypes: Array<any>;
   dataTypes: Array<string>;
   searching: boolean;
   isFormInvalid: boolean;  
@@ -74,8 +74,13 @@ export class RdfEditorComponent implements OnInit {
     request.subject = this.formGroup.value.inputSubject;
     request.uri = this.formGroup.value.inputUri;
     request.format = this.formGroup.value.inputFormat;
-    request.types = this.inputTypes;
+    let tempInputType = Array<string>();
+    for(let i = 0; i < this.inputTypes.length; i++){
+      tempInputType.push(this.inputTypes[i].uri);
+    }
+    request.types = tempInputType;
     request.dataTypes = this.parseDataType(this.dataTypes);
+    
     if(this.validateFormInput(request.subject, request.uri, request.format, request.types, request.dataTypes)) {
       this.isFormInvalid = false;
       if(this.authenticationService.isLoggedIn()) {
@@ -116,12 +121,18 @@ export class RdfEditorComponent implements OnInit {
         ? []
         : this.vocabSuggestionService.getVocabsCall(term).pipe(
           map(values => values.results.map( value => {
-            return value.uri[0];
+            return new RdfEditorComponent.holder(value.uri[0], value.prefixedName[0]);
           }))
         )) 
      );
     }
-
+  
+  resultFormatter(value: any) {
+    return value.name;
+  }
+  inputFormatter(value: any) {
+    return value.name;
+  }
   parseDataType(values: Array<string>) {
     let newValues = new Array<string>();
     for(let index in values){
@@ -181,5 +192,13 @@ export class RdfEditorComponent implements OnInit {
     }
     return true;
   }
- 
+
+  static holder = class{
+    uri;
+    name;
+    constructor(uri, name){
+      this.uri = uri;
+      this.name = name;
+    }
+  }
 }
