@@ -6,7 +6,7 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
-  private url = "http://localhost:8080/api"
+  private url = "https://rdf-transformer-api.herokuapp.com/api"
 
   constructor(private http: HttpClient) {
   }

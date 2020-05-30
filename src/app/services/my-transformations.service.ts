@@ -13,7 +13,7 @@ import { FilesList } from '../models/FileList';
 })
 export class MyTransformationsService {
 
-  private url = 'http://localhost:8080/api';
+  private url = 'https://rdf-transformer-api.herokuapp.com/api';
 
   constructor(private authenticationService: AuthenticationService,
               private http: HttpClient,
