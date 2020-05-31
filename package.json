@@ -1,6 +1,6 @@
 {
   "name": "rdf-transformer",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --output-path rdf-transformer --aot --prod"
+    "postinstall": "ng build --aot --target=production"
   },
   "engines": {
     "node": "12.16.1",
@@ -31,6 +31,7 @@
     "@angular/router": "~9.0.4",
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "bootstrap": "^4.0.0-alpha.4",
+    "express": "^4.17.1",
     "install": "^0.13.0",
     "jquery": "^3.5.0",
     "ngx-papaparse": "^4.0.4",
