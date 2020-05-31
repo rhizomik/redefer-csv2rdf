@@ -4,19 +4,24 @@
   "scripts": {
     "ng": "ng",
     "start": "node server.js",
-    "build": "ng build --prod",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ng build --output-path rdf-transformer --aot --prod"
+  },
+  "engines": {
+    "node": "12.16.1",
+    "npm": "6.13.4"
   },
   "private": true,
   "dependencies": {
-    "@angular/cli": "~9.0.4",
-    "@angular/compiler-cli": "~9.0.4",
     "@angular/animations": "~9.0.4",
     "@angular/cdk": "^9.2.3",
+    "@angular/cli": "~9.0.4",
     "@angular/common": "~9.0.4",
     "@angular/compiler": "~9.0.4",
+    "@angular/compiler-cli": "~9.0.4",
     "@angular/core": "~9.0.4",
     "@angular/forms": "~9.0.4",
     "@angular/localize": "^9.0.4",
@@ -29,14 +34,14 @@
     "install": "^0.13.0",
     "jquery": "^3.5.0",
     "ngx-papaparse": "^4.0.4",
-    "npm": "^6.13.7",
+    "npm": "^6.14.5",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "typescript": "~3.7.5"
+    "typescript": "~3.7.5",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.4",
+    "@angular-devkit/build-angular": "^0.901.7",
     "@angular/cli": "~9.0.4",
     "@angular/compiler-cli": "~9.0.4",
     "@angular/language-service": "~9.0.4",
@@ -56,9 +61,5 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.7.5"
-  },
-  "engines": {
-    "node": "12.16.1",
-    "npm": "6.13.4"
   }
 }
