@@ -8,7 +8,7 @@ const app = express();
 app.use(express.static(__dirname + '/dist/rdf-transformer'));
 
 app.get('/*', function(req,res) {
-    
+    console.log(" Fetching from.." + __dirname);
 res.sendFile(path.join(__dirname+'/dist/rdf-transformer/index.html'));
 });
 
