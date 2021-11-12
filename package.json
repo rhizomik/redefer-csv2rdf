@@ -1,6 +1,6 @@
 {
-  "name": "rdf-transformer",
-  "version": "0.0.0",
+  "name": "redefer-csv2rdf",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,8 +13,10 @@
   "dependencies": {
     "@angular/animations": "~9.0.4",
     "@angular/cdk": "^9.2.3",
+    "@angular/cli": "~9.0.4",
     "@angular/common": "~9.0.4",
     "@angular/compiler": "~9.0.4",
+    "@angular/compiler-cli": "~9.0.4",
     "@angular/core": "~9.0.4",
     "@angular/forms": "~9.0.4",
     "@angular/localize": "^9.0.4",
@@ -25,15 +27,14 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "bootstrap": "^4.0.0-alpha.4",
     "install": "^0.13.0",
-    "jquery": "^3.5.0",
-    "ngx-papaparse": "^4.0.4",
-    "npm": "^6.13.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "ngx-papaparse": "^4.0.4",
+    "typescript": "~3.7.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.4",
+    "@angular-devkit/build-angular": "^0.901.7",
     "@angular/cli": "~9.0.4",
     "@angular/compiler-cli": "~9.0.4",
     "@angular/language-service": "~9.0.4",

@@ -8,7 +8,7 @@ import { AuthenticationService } from './authentication.service';
 @Injectable()
 export class FileUploadService {
 
-    private url = 'http://localhost:8080/api';
+    private url = 'https://rdf-transformer-api.herokuapp.com/api';
   
     constructor(private http: HttpClient,
                 private authenticationService: AuthenticationService) {}
