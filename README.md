@@ -1,7 +1,7 @@
 # ReDeFer CSV2RDF
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
-This project must be run along side with https://github.com/raultds/TFG-RDF-Transformer-API/ spring project running.
+This project must be run alongside [ReDeFer CSV2RDF API](https://github.com/rhizomik/redefer-csv2rdf-api) spring project running.
 
 ## Installation
 
